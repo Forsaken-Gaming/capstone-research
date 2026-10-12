@@ -24,19 +24,22 @@ export default function TaskItem({ task, onToggle, onDelete }: TaskItemProps) {
   }
   function handleDelete() {
     // Animate Test
-    animate(splitText("label", { words: false, chars: true }).chars, {
-      y: [
-        { to: "-1.75rem", ease: "outExpo", duration: 600 },
-        { to: 0, ease: "outBounce", duration: 800, delay: 100 },
-      ],
+    animate(
+      splitText(`#label-${task.id}`, { words: false, chars: true }).chars,
+      {
+        y: [
+          { to: "-1.75rem", ease: "outExpo", duration: 600 },
+          { to: 0, ease: "outBounce", duration: 800, delay: 100 },
+        ],
 
-      rotate: {
-        from: "-1turn",
-        delay: 0,
+        rotate: {
+          from: "-1turn",
+          delay: 0,
+        },
+        delay: stagger(50),
+        ease: "inOutCirc",
       },
-      delay: stagger(50),
-      ease: "inOutCirc",
-    });
+    );
 
     // Animate disappearing
     animate(`#task-${task.id}`, {
@@ -55,7 +58,7 @@ export default function TaskItem({ task, onToggle, onDelete }: TaskItemProps) {
       key={task.id}
       className={task.completed ? "completed" : ""}
     >
-      <label>
+      <label id={`label-${task.id}`}>
         <input
           type="checkbox"
           checked={task.completed}
